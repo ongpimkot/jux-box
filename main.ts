@@ -1,95 +1,20 @@
-let Mode = 0
 input.onButtonPressed(Button.A, function () {
-    Mode = 1
-    music.setTempo(140)
-    music.playTone(392, music.beat(BeatFraction.Whole))
-    music.playTone(370, music.beat(BeatFraction.Whole))
-    music.playTone(392, music.beat(BeatFraction.Double))
-    music.playTone(0, music.beat(BeatFraction.Whole))
-    music.playTone(392, music.beat(BeatFraction.Whole))
-    music.playTone(370, music.beat(BeatFraction.Whole))
-    music.playTone(392, music.beat(BeatFraction.Double))
-    music.playTone(0, music.beat(BeatFraction.Whole))
-    music.playTone(392, music.beat(BeatFraction.Whole))
-    music.playTone(370, music.beat(BeatFraction.Whole))
-    music.playTone(330, music.beat(BeatFraction.Double))
-    music.playTone(294, music.beat(BeatFraction.Half))
-    music.playTone(294, music.beat(BeatFraction.Breve))
-    music.playTone(0, music.beat(BeatFraction.Whole))
-    music.playTone(247, music.beat(BeatFraction.Whole))
-    music.playTone(294, music.beat(BeatFraction.Half))
-    music.playTone(330, music.beat(BeatFraction.Double))
-    music.playTone(0, music.beat(BeatFraction.Whole))
-    music.playTone(330, music.beat(BeatFraction.Whole))
-    music.playTone(392, music.beat(BeatFraction.Half))
-    music.playTone(440, music.beat(BeatFraction.Double))
-    music.playTone(0, music.beat(BeatFraction.Whole))
-    music.playTone(392, music.beat(BeatFraction.Whole))
-    music.playTone(440, music.beat(BeatFraction.Half))
-    music.playTone(494, music.beat(BeatFraction.Breve))
-    Mode = 3
+    music.startMelody(["G4:1", "F4#:1", "G4:2", "", "G4:1", "F4#:1", "G4:2", "", "G4:1", "F4#:1", "E4:2", "D4:1/4", "D4:2", "", "B3:1", "D4:1/2", "E4:2", "", "E4:1", "G4:1/2", "A4:2", "", "G4:1", "A4:1/2", "B4:4", ""], MelodyOptions.Forever)
+})
+input.onButtonPressed(Button.AB, function () {
+    music.setTempo(40)
+})
+music.onEvent(MusicEvent.MelodyEnded, function () {
+    basic.showIcon(IconNames.Heart)
 })
 input.onButtonPressed(Button.B, function () {
-    Mode = 2
-    music.setTempo(50)
-    music.playTone(262, music.beat(BeatFraction.Quarter))
-    music.playTone(262, music.beat(BeatFraction.Quarter))
-    music.playTone(294, music.beat(BeatFraction.Whole))
-    music.playTone(262, music.beat(BeatFraction.Half))
-    music.playTone(349, music.beat(BeatFraction.Half))
-    music.playTone(330, music.beat(BeatFraction.Whole))
-    basic.pause(200)
-    music.playTone(262, music.beat(BeatFraction.Quarter))
-    music.playTone(262, music.beat(BeatFraction.Quarter))
-    music.playTone(294, music.beat(BeatFraction.Whole))
-    music.playTone(262, music.beat(BeatFraction.Half))
-    music.playTone(392, music.beat(BeatFraction.Half))
-    music.playTone(349, music.beat(BeatFraction.Whole))
-    basic.pause(200)
-    music.playTone(262, music.beat(BeatFraction.Quarter))
-    music.playTone(262, music.beat(BeatFraction.Quarter))
-    music.playTone(440, music.beat(BeatFraction.Whole))
-    music.playTone(392, music.beat(BeatFraction.Half))
-    music.playTone(349, music.beat(BeatFraction.Half))
-    music.playTone(330, music.beat(BeatFraction.Whole))
-    music.playTone(294, music.beat(BeatFraction.Whole))
-    basic.pause(200)
-    music.playTone(440, music.beat(BeatFraction.Quarter))
-    music.playTone(440, music.beat(BeatFraction.Quarter))
-    music.playTone(392, music.beat(BeatFraction.Half))
-    music.playTone(349, music.beat(BeatFraction.Half))
-    music.playTone(392, music.beat(BeatFraction.Half))
-    music.playTone(349, music.beat(BeatFraction.Whole))
-    Mode = 3
+    music.changeTempoBy(40)
 })
-basic.forever(function () {
-    if (Mode == 1) {
-        basic.showIcon(IconNames.Chessboard)
-        basic.showLeds(`
-            # . # . #
-            . # . # .
-            # . # . #
-            . # . # .
-            # . # . #
-            `)
-    } else if (Mode == 2) {
-        basic.showLeds(`
-            . . . . .
-            . . . . .
-            . . . . .
-            . . # . .
-            . . # . .
-            `)
-        basic.showLeds(`
-            . . . . .
-            . . # . .
-            . . . . .
-            . . # . .
-            . . # . .
-            `)
-    } else if (Mode == 3) {
-        basic.clearScreen()
-    } else {
-        basic.showIcon(IconNames.Happy)
-    }
+music.onEvent(MusicEvent.MelodyStarted, function () {
+    basic.showIcon(IconNames.Chessboard)
 })
+input.onGesture(Gesture.Shake, function () {
+    music.stopMelody(MelodyStopOptions.All)
+})
+music.setTempo(40)
+basic.showString("Demon Slayer")
